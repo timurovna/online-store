@@ -30,7 +30,7 @@ export const loginUser = (creds) =>{
 					dispatch(loginError(data.message))
 				}
 				else {
-					console.log(data)
+					//console.log(data)
 					localStorage.setItem('token', data.token);
 					localStorage.setItem('username', data.data.userName);
 					localStorage.setItem('role', data.data.role);
@@ -64,7 +64,6 @@ export const fetchProducts = () => {
 		return fetch('http://aonlinestore.herokuapp.com/api/products')
 			.then(response => response.json())
 			.then(data => {
-				console.log("prod")
 				//console.log(data)
 				dispatch(getProducts(data))
 		})
@@ -112,8 +111,8 @@ export const filterList = (filters) => {
 		return fetch('http://aonlinestore.herokuapp.com/api/products/filter', config)
 			.then(response => response.json())
 			.then(data=>{
-				console.log(data)
-				console.log("filter")
+				//console.log(data)
+				//console.log("filter")
 				dispatch({type: "FILTER_LIST", payload: data})
 			})
 	}
@@ -128,11 +127,11 @@ export const deleteProduct = (product_id) => {
 		return fetch('http://aonlinestore.herokuapp.com/api/products/delete', config)
 		.then(response => response.json())
 		.then(data=> {
-			if (data.code === 0){
+			if (data.code===0){
+				console.log(data)
 				dispatch(fetchProducts())
 			}
 		})
-			
 	}
 }
 
@@ -146,11 +145,12 @@ export const updateProduct = (editedProduct, product_id) => {
 		return fetch(`http://aonlinestore.herokuapp.com/api/products/update?id=${product_id}`, config)
 		.then(response => response.json())
 		.then(data=> {
-			console.log(data)
+			if (data){
+				dispatch({type: 'UPDATE', payload: data.code})
+			}
 		})	
 	}
 }
-
 export const addProduct = (newProduct) => {
 	let config = {
 		method: 'POST',
@@ -161,8 +161,8 @@ export const addProduct = (newProduct) => {
 		return fetch('http://aonlinestore.herokuapp.com/api/products/add', config)
 		.then(response => response.json())
 		.then(data=> {
-			if (data.code === 0){
-				dispatch(fetchProducts())
+			if (data){
+				dispatch({type: 'ADD', payload: data.code})
 			}
 		})	
 	}

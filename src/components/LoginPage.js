@@ -54,7 +54,7 @@ class Login extends React.Component {
 					<div className="wrong"><p>{this.props.errorMsg}</p></div>
 					<form>
 						<label for="login">Login</label>
-						<input type="text" 
+						<input  type="text" 
 								id="email"
 								name="email"
 								placeholder="Enter login here" 
@@ -64,8 +64,9 @@ class Login extends React.Component {
 						/>
 						<div className="error">{this.state.errorEmail}</div>
 
-						<label for="password" className="password">Password</label>
+						<label for="password">Password</label>
     					<input type="password" 
+    							className="password"
     							id="password"
     							value={this.state.password}
     							placeholder="Enter Password" 
@@ -74,7 +75,7 @@ class Login extends React.Component {
     							onBlur = {()=>this.validatePassword(this.state.password)}
     					/>
     					<div className="error">{this.state.errorPassword}</div>
-    					<button type="submit" disabled={this.state.errorEmail || this.state.errorPassword} onClick={this.clickHandler}>Login</button>
+    					<button className="ui button" type="submit" disabled={this.state.errorEmail || this.state.errorPassword} onClick={this.clickHandler}>Login</button>
 					</form>
 				</div>)
 	}

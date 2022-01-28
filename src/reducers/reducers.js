@@ -11,10 +11,6 @@ const initialState = {
 
 const authReducer = (state=initialState, action) =>{
 	switch(action.type){
-		case 'LOGIN_REQUEST':
-			return Object.assign({}, state, {
-				isAuthenticated: false,
-			})
 		case 'LOGIN_SUCCESS':
 			return Object.assign({}, state, {
 				isAuthenticated: true,
@@ -62,12 +58,14 @@ const productReducer = (state={}, action) =>{
 			return state
 	}
 }
-const deleteReducer = (state="", action) =>{
+const messageReducer = (state="", action) =>{
 	switch (action.type) {
 		case 'DELETE':
-			return {
-				message: action.payload
-			}
+			return action.payload
+		case 'ADD':
+			return action.payload
+		case 'UPDATE': 
+			return action.payload
 		default:
 			return state
 	}
@@ -76,6 +74,7 @@ const deleteReducer = (state="", action) =>{
 export default combineReducers({
 	auth: authReducer,
 	products: productsReducer,
-	product: productReducer
+	product: productReducer,
+	message: messageReducer 
 })
 

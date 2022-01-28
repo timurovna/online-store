@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from "react-router";
 import Header from './Header';
 import { connect } from 'react-redux';
+import { Modal, Button } from 'semantic-ui-react'
 import { getDetails, updateProduct, addProduct, fetchProducts} from '../actions/actions.js';
 
 
@@ -18,7 +19,8 @@ class EditProduct extends React.Component {
 			category: "",
 			itemsSold: "0",
 			available: "",
-			errorMessage: ""
+			errorMessage: "",
+			modal: false
 		}
 	}
 	componentDidMount(){
@@ -58,19 +60,22 @@ class EditProduct extends React.Component {
 							}
 		if (this.props.location.state.type === "edit"){
 			this.props.updateProduct(editedProduct, this.props.product.product._id).then(()=>{
-				this.props.history.goBack()
+				if (this.props.message === 0){
+					this.props.history.goBack()
+				}
 			})
 		}
 		else{
 			console.log(editedProduct)
 			this.props.addProduct(editedProduct).then(()=>{
-				this.props.history.goBack()
+				if (this.props.message === 0){
+					this.setState({modal : true})
+					console.log("added")
+				}
 			})
 		}
 	}
-
 	render(){
-        
         	return <div>
 			 		<Header />
 			 		<div className="details">
@@ -117,6 +122,20 @@ class EditProduct extends React.Component {
 			 				<div><p>Description</p><textarea value={this.state.description} name="description" onChange={this.inputChangeHandler}/></div>
 			 			</div>
 			 		</div>
+			 		<div>
+			 			<Modal open={this.state.modal} 
+			 					onClose={() => this.setState({modal : false})} 
+			 					onOpen={() => this.setState({modal : true})} >
+			 				<Modal.Content>
+        						<Modal.Description>
+          							Your product successfully added
+        						</Modal.Description>
+      						</Modal.Content>
+      						<Modal.Actions>
+        						<button onClick={()=>this.props.history.goBack()}>OK</button>
+      						</Modal.Actions>
+			 			</Modal>
+			 		</div>
 			 		<div className="buy-button">
 			 			<button onClick={this.clickHandler}>Save</button>
 			 			<button onClick={this.props.history.goBack}>Cancel</button>
@@ -128,7 +147,8 @@ class EditProduct extends React.Component {
 const mapStateToProps = (state) =>{
 	console.log(state)
 	return {
-		product: state.product
+		product: state.product,
+		message: state.message
 	}
 }
 

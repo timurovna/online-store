@@ -1,8 +1,17 @@
+body{
+	padding: 15px;
+}
+button {
+	cursor: pointer;
+}
 .login{
 	margin: 100px auto 0 auto;
 	display: flex;
 	width: 400px;
 	flex-direction: column;
+}
+.header-logo{
+	cursor: pointer;
 }
 .login form{
 	display: flex;
@@ -16,17 +25,20 @@
 	height: 120px;
 	margin: 0 auto;
 }
+.login label{
+	margin-top: 10px;
+}
 .error{
 	font-size: 14px;
 	color: red;
 }
 .password{
-	margin-top: 20px;
+	margin-bottom: 20px;
 }
 .logo{
 	display: flex;
 }
-.login button {
+.ui button {
 	margin-top: 20px;
 	height: 40px;
 	border-radius: 7px;
@@ -48,12 +60,17 @@
 	display: flex;
 	align-items: center;
 }
+.header-right p{
+	margin-top: 10px;
+	margin-right: 10px;
+}
 .header-right button{
 	height: 40px;
 	margin-left: 10px;
 }
 .products {
 	display: flex;
+	justify-content: center;
   	flex-wrap: wrap;
 }
 .product-card {
@@ -144,6 +161,12 @@ textarea {
 }
 .expand{
 	cursor: pointer;
+	padding: 5px 0;
+	background-color: #F0F8FF;
+	margin: 10px 0;
+}
+.expand p{
+	font-size: 16px;
 }
 .filter {
 	padding: 30px 10px;

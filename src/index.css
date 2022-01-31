@@ -153,10 +153,8 @@ textarea {
 	padding: 15px;
 }
 .buy-button button{
-	background-color: green;
 	width: 70px;
 	height: 40px;
-	color: white;
 	border-radius: 5px;
 }
 .expand{

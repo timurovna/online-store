@@ -39,7 +39,7 @@ class ProductPage extends React.Component {
 			 			</div>
 
 			 			<div className="right">
-			 				<div>{localStorage.getItem("role")==="admin" ? <Link to={{ pathname: '/productdetails/edit/:productId', query: {productId: this.props.product.product_id}, state: {id: this.props.product.product._id, type: "edit"}}}>
+			 				<div>{localStorage.getItem("role")==="admin" ? <Link to={{ pathname: '/productdetails/edit', state: {id: this.props.product.product._id, type: "edit"}}}>
 									<button>Edit</button>
 								</Link>	: null}
 							</div>

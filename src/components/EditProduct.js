@@ -4,6 +4,7 @@ import Header from './Header';
 import { connect } from 'react-redux';
 import { Modal, Button } from 'semantic-ui-react'
 import { getDetails, updateProduct, addProduct, fetchProducts} from '../actions/actions.js';
+import { validate } from "./Validation.js";
 
 
 class EditProduct extends React.Component {
@@ -19,8 +20,14 @@ class EditProduct extends React.Component {
 			category: "",
 			itemsSold: "0",
 			available: "",
-			errorMessage: "",
-			modal: false
+			modal: false,
+			requiredError: "",
+			imageError: "",
+			ratingError: "",
+			priceError: "",
+			titleError: "",
+			descriptionError: "",
+			disabled: true,
 		}
 	}
 	componentDidMount(){
@@ -41,23 +48,34 @@ class EditProduct extends React.Component {
 			})
 		}
 	}
+	blurHandler = (e) => {
+		let error = validate(e.target.name, e.target.value)
+		this.setState({[e.target.name + "Error"]: error})
+
+		if (this.state.title!=="" && this.state.image!=="" && this.state.description!=="" && this.state.category!=="none" &&
+		this.state.available!=="none" && this.state.gender!=="none" && this.state.rating!=="" && this.state.price!==""){
+			this.setState({disabled: false})
+		}
+		else{
+			this.setState({disabled: true})
+		}
+	}
 	inputChangeHandler = (e) => {
 		this.setState({
 			[e.target.name]: e.target.value
 		})
 	}
-	
 	clickHandler = () => {
 		let editedProduct = {title: this.state.title, 
-								image: this.state.image,
-								description: this.state.description,
-								category: this.state.category,
-								available: this.state.available,
-								gender: this.state.gender,
-								rating: parseInt(this.state.rating),
-								price: this.state.price,
-								itemsSold: this.state.itemsSold
-							}
+							image: this.state.image,
+							description: this.state.description,
+							category: this.state.category,
+							available: this.state.available,
+							gender: this.state.gender,
+							rating: parseInt(this.state.rating),
+							price: this.state.price,
+							itemsSold: this.state.itemsSold
+						}
 		if (this.props.location.state.type === "edit"){
 			this.props.updateProduct(editedProduct, this.props.product.product._id).then(()=>{
 				if (this.props.message === 0){
@@ -66,11 +84,9 @@ class EditProduct extends React.Component {
 			})
 		}
 		else{
-			console.log(editedProduct)
 			this.props.addProduct(editedProduct).then(()=>{
 				if (this.props.message === 0){
 					this.setState({modal : true})
-					console.log("added")
 				}
 			})
 		}
@@ -80,23 +96,37 @@ class EditProduct extends React.Component {
 			 		<Header />
 			 		<div className="details">
 			 			<div className="left">
-			 				<div><p>Image url</p><textarea name="image" value={this.state.image} onChange={this.inputChangeHandler}/></div>
-			 				<div className="rating"><p>Rating</p><input type="number" value={this.state.rating} name="rating" onChange={this.inputChangeHandler}/></div>
-			 				<div><p>Price</p><input type="text" value={this.state.price} name="price" onChange={this.inputChangeHandler}/></div>
-			 				<div><p>Items sold: {this.state.itemsSold}</p></div>
+			 				<div>
+			 					<p>Image url</p>
+			 					<textarea name="image" value={this.state.image} onChange={this.inputChangeHandler} onBlur={this.blurHandler}/>
+			 					<p className="error">{this.state.imageError}</p>
+			 				</div>
+			 				<div className="rating">
+			 					<p>Rating</p>
+			 					<input type="number" value={this.state.rating} name="rating" onChange={this.inputChangeHandler} onBlur={this.blurHandler}/>
+			 					<p className="error">{this.state.ratingError}</p>
+			 				</div>
+			 				<div>
+			 					<p>Price</p>
+			 					<input type="text" value={this.state.price} name="price" onChange={this.inputChangeHandler} onBlur={this.blurHandler}/>
+			 					<p className="error">{this.state.priceError}</p>
+			 				</div>
+			 				<div>
+			 					<p>Items sold: {this.state.itemsSold}</p>
+			 				</div>
 			 				<div className="left-bottom">
 			 					<div className="left-bottom-input">
 			 						<p>Available</p>
-			 						<select id="available" value={this.state.available} name="available" onChange={this.inputChangeHandler}>
-											<option value="none">None</option>
-											<option value="Yes">Yes</option>
-  											<option value="No">No</option>
-										</select>
+			 						<select id="available" value={this.state.available} name="available" onChange={this.inputChangeHandler} onBlur={this.blurHandler}>
+										<option value="none">None</option>
+										<option value="Yes">Yes</option>
+  										<option value="No">No</option>
+									</select>
 			 					</div>
 			 					<div className="left-bottom-input">
 			 						<div>
 										<p>Gender</p>
-										<select id="category" value={this.state.gender} name="gender" onChange={this.inputChangeHandler}>
+										<select id="category" value={this.state.gender} name="gender" onChange={this.inputChangeHandler} onBlur={this.blurHandler}>
 											<option value="none">None</option>
 											<option value="Unisex">Unisex</option>
   											<option value="Female">Female</option>
@@ -107,7 +137,7 @@ class EditProduct extends React.Component {
 			 					<div className="left-bottom-input">
 			 						<div>
 										<p>Category</p>
-										<select id="category" value={this.state.category} name="category" onChange={this.inputChangeHandler}>
+										<select id="category" value={this.state.category} name="category" onChange={this.inputChangeHandler} onBlur={this.blurHandler}>
   											<option value="none">None</option>
   											<option value="Expensive">Expensive</option>
  											<option value="Cheap">Cheap</option>
@@ -116,10 +146,17 @@ class EditProduct extends React.Component {
 									</div>
 			 					</div>
 			 				</div>
+			 				<p className="error">{this.state.requiredError}</p>
 			 			</div>
 			 			<div className="right">
-			 				<div><p>Title</p><input type="text" value={this.state.title} name="title" onChange={this.inputChangeHandler}/></div>
-			 				<div><p>Description</p><textarea value={this.state.description} name="description" onChange={this.inputChangeHandler}/></div>
+			 				<div>
+			 					<p>Title</p><input type="text" value={this.state.title} name="title" onChange={this.inputChangeHandler} onBlur={this.blurHandler}/>
+			 					<p className="error">{this.state.titleError}</p>
+			 				</div>
+			 				<div>
+			 					<p>Description</p><textarea value={this.state.description} name="description" onChange={this.inputChangeHandler} onBlur={this.blurHandler}/>
+			 					<p className="error">{this.state.descriptionError}</p>
+			 				</div>
 			 			</div>
 			 		</div>
 			 		<div>
@@ -128,7 +165,7 @@ class EditProduct extends React.Component {
 			 					onOpen={() => this.setState({modal : true})} >
 			 				<Modal.Content>
         						<Modal.Description>
-          							Your product successfully added
+          							Your product successfully added!
         						</Modal.Description>
       						</Modal.Content>
       						<Modal.Actions>
@@ -137,7 +174,7 @@ class EditProduct extends React.Component {
 			 			</Modal>
 			 		</div>
 			 		<div className="buy-button">
-			 			<button onClick={this.clickHandler}>Save</button>
+			 			<button disabled={this.state.disabled} onClick={this.clickHandler}>Save</button>
 			 			<button onClick={this.props.history.goBack}>Cancel</button>
 			 		</div>
 				</div>

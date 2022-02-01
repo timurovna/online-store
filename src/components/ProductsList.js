@@ -16,6 +16,10 @@ class ProductsList extends React.Component {
 		if (!this.props.products){
 			return null
 		}
+		else if (this.props.products.length === 0){
+			return <div><NotFound /></div>
+		}
+		console.log("list")
 		return this.props.products.map(product => {
 				return <div><Card product={product}/></div>
 			})

@@ -48,9 +48,14 @@ class EditProduct extends React.Component {
 			})
 		}
 	}
-	blurHandler = (e) => {
-		let error = validate(e.target.name, e.target.value)
-		this.setState({[e.target.name + "Error"]: error})
+	blurHandler = (e) => {		
+		let error = validate(e.target.name, e.target.value, false)
+		if (e.target.name==="category" || e.target.name==="available" || e.target.name==="gender"){
+			this.setState({requiredError: error})
+		}
+		else{
+			this.setState({[e.target.name + "Error"]: error})
+		}
 
 		if (this.state.title!=="" && this.state.image!=="" && this.state.description!=="" && this.state.category!=="none" &&
 		this.state.available!=="none" && this.state.gender!=="none" && this.state.rating!=="" && this.state.price!==""){

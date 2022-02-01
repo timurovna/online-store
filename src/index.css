@@ -206,5 +206,8 @@ textarea {
 	display: flex;
 	justify-content: center;
 }
+.not-found {
+	padding: 30px;
+}
 
 

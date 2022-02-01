@@ -1,12 +1,13 @@
 import React from 'react';
 import { filterList, fetchProducts } from '../actions/actions.js';
 import { connect } from 'react-redux';
+import { validate } from './Validation.js';
 
 class Filter extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			filters: {},
+			filters: {gender: "Unisex"},
 			available: false,
 			gender: "Unisex",
 			category: "",
@@ -14,7 +15,8 @@ class Filter extends React.Component{
 			priceFrom: "",
 			priceTo: "",
 			showFilter: false,
-			error: ""
+			ratingError: "",
+			priceError: ""
 		}
 	}
 	availableHandler = (e) => {
@@ -43,17 +45,23 @@ class Filter extends React.Component{
 					}
 		})
 	}
-	genderHandler = (e) => {
-		this.setState({
-				gender: e.target.value, 
-				filters: {...this.state.filters,
-						gender: e.target.value
-				}
-			})
+	blurHandler = (e) => {
+		let error = validate(e.target.name, e.target.value, true)
+		if (e.target.name === "priceFrom" || e.target.name === "priceTo") {
+			this.setState({priceError: error})
+		}
+		else{
+			this.setState({[e.target.name + "Error"]: error})
+		}
 	}
 	applyClickHandler = () => {
-		console.log(this.state.filters)
-		this.props.filterList(this.state.filters)
+		let filters = {}
+		for (let key in this.state.filters) {
+			if (this.state.filters[key] !== "" && this.state.filters[key]!=="None"){
+				filters[key] = this.state.filters[key]
+			}
+		}
+		this.props.filterList(filters)
 	}
 	clearClickHandler = () => {
 		this.props.fetchProducts()
@@ -84,11 +92,12 @@ class Filter extends React.Component{
 
 					<div className="gender">
 						<p>Gender</p>
-						<div name="gender" onChange={this.genderHandler} >
-							<input type="radio" name="gender1" value="Male"/><label for="male">Male</label>
-							<input type="radio" name="gender1" value="Female"/><label for="female">Female</label>
-							<input type="radio" name="gender1" value="Unisex" /><label for="unisex">Unisex</label>
-						</div>
+						<select id="gender" name="gender" onChange={this.inputChangeHandler} value={this.state.gender}>
+							<option value="None">None</option>
+							<option value="Unisex">Unisex</option>
+ 							<option value="Female">Female</option>
+  							<option value="Male">Male</option>
+						</select>
 					</div>
 
 
@@ -105,20 +114,41 @@ class Filter extends React.Component{
 
 					<div>
 						<p>Rating</p>
-						<input type="number" min="1" max="5" value={this.state.rating} name="rating" onChange={this.inputChangeHandler}/>
-						<p>{this.state.error}</p>
+						<input type="number" min="1" max="5" 
+								value={this.state.rating} name="rating" 
+								onChange={this.inputChangeHandler}
+								onBlur = {this.blurHandler}
+						/>
+						<p className="error">{this.state.ratingError}</p>
 					</div>
 
 
 					<div>
-						<p>Price</p>
-						<input type="text" placeholder="from" value={this.state.priceFrom} name="priceFrom" onChange={this.inputChangeHandler}/>
-						<input type="text" placeholder="to" value={this.state.priceTo} name="priceTo" onChange={this.inputChangeHandler}/>
+						<div>
+							<p>Price</p>
+							<input type="text" 
+								placeholder="from" 
+								value={this.state.priceFrom} 
+								name="priceFrom" 
+								onChange={this.inputChangeHandler}
+								onBlur = {this.blurHandler}
+							/>
+							<input type="text" 
+								placeholder="to" 
+								value={this.state.priceTo} 
+								name="priceTo" 
+								onChange={this.inputChangeHandler}
+								onBlur = {this.blurHandler}
+							/>
+						</div>
+						<p className="error">{this.state.priceError}</p>
 					</div>
 
 
 					<div className="filter-btn">
-						<button onClick={this.applyClickHandler}>Apply</button>
+						<button disabled={this.state.rating>5 || this.rating<1 || isNaN(this.state.priceTo) || isNaN(this.state.priceFrom) ? true: false} 
+							onClick={this.applyClickHandler}
+						>Apply</button>
 					</div>
 
 
@@ -128,7 +158,6 @@ class Filter extends React.Component{
 				</div>
 			</div>
 	}
-	
 }
 
 export default connect(null, {filterList:filterList, fetchProducts:fetchProducts})(Filter)

@@ -1,6 +1,9 @@
-export const validate = (name, value) => {
+export const validate = (name, value, filter) => {
 	if (name === "rating"){
-				if (value > 5 || value < 1){
+				if (value === "" && filter===true){
+					return ""
+				}
+				else if (value > 5 || value < 1){
 					return "Must be a number form 1 to 5"
 				}
 				else{
@@ -37,10 +40,18 @@ export const validate = (name, value) => {
 					return ""
 				}
 		}
+		else if (name === "priceTo" || name === "priceFrom"){
+			if (isNaN(value)){
+					return "Must be a number"
+			}
+			else {
+				return ""
+			}
+		}
 
 		else if (name === "category"){
 			if (value=== "none"){
-					return "Category is required"
+					return "Category field is required"
 				}
 				else{
 					return ""
@@ -48,7 +59,7 @@ export const validate = (name, value) => {
 		}
 		else if (name === "gender") {
 			if (value=== "none"){
-					return "Gender is required"
+					return "Gender field is required"
 				}
 				else{
 					return ""
@@ -56,7 +67,7 @@ export const validate = (name, value) => {
 		}
 		else if (name === "available"){
 			if (value=== "none"){
-					return "Gender is required"
+					return "Available field is required"
 				}
 				else{
 					return ""

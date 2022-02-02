@@ -27,6 +27,7 @@ class EditProduct extends React.Component {
 			priceError: "",
 			titleError: "",
 			descriptionError: "",
+			availableError: "",
 			disabled: true,
 		}
 	}
@@ -50,7 +51,7 @@ class EditProduct extends React.Component {
 	}
 	blurHandler = (e) => {		
 		let error = validate(e.target.name, e.target.value, false)
-		if (e.target.name==="category" || e.target.name==="available" || e.target.name==="gender"){
+		if (e.target.name==="category" || e.target.name==="gender"){
 			this.setState({requiredError: error})
 		}
 		else{
@@ -122,11 +123,12 @@ class EditProduct extends React.Component {
 			 				<div className="left-bottom">
 			 					<div className="left-bottom-input">
 			 						<p>Available</p>
-			 						<select id="available" value={this.state.available} name="available" onChange={this.inputChangeHandler} onBlur={this.blurHandler}>
-										<option value="none">None</option>
-										<option value="Yes">Yes</option>
-  										<option value="No">No</option>
-									</select>
+			 						<input type="text" 
+			 							value={this.state.available} 
+			 							name="available" 
+			 							onChange={this.inputChangeHandler} 
+			 							onBlur={this.blurHandler} 
+			 						/>
 			 					</div>
 			 					<div className="left-bottom-input">
 			 						<div>
@@ -151,6 +153,7 @@ class EditProduct extends React.Component {
 									</div>
 			 					</div>
 			 				</div>
+			 				<p className="error">{this.state.availableError}</p>
 			 				<p className="error">{this.state.requiredError}</p>
 			 			</div>
 			 			<div className="right">

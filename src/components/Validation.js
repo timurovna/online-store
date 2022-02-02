@@ -66,8 +66,8 @@ export const validate = (name, value, filter) => {
 				}
 		}
 		else if (name === "available"){
-			if (value=== "none"){
-					return "Available field is required"
+			if (value=== "" || isNaN(value)){
+					return "Items available must be a number"
 				}
 				else{
 					return ""

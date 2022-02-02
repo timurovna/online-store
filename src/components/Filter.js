@@ -20,6 +20,7 @@ class Filter extends React.Component{
 		}
 	}
 	availableHandler = (e) => {
+		console.log(e.target.checked)
 		if (e.target.checked===true){
 			this.setState({
 				available: e.target.checked, 

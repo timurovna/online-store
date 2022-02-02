@@ -33,7 +33,7 @@ class Filter extends React.Component{
 			this.setState({
 				available: e.target.checked, 
 				filters: {...this.state.filters,
-						available: "No"
+						available: ""
 				}
 			})
 		}
@@ -61,6 +61,7 @@ class Filter extends React.Component{
 			if (this.state.filters[key] !== "" && this.state.filters[key]!=="None"){
 				filters[key] = this.state.filters[key]
 			}
+		console.log(filters)
 		}
 		this.props.filterList(filters)
 	}

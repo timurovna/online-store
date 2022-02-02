@@ -1,14 +1,21 @@
 import React from 'react';
 import Header from './Header';
 import { connect } from 'react-redux';
-import { getDetails } from '../actions/actions.js';
+import { getDetails, buyProduct } from '../actions/actions.js';
 import { withRouter } from "react-router";
 import full from '../full.png';
 import empty from '../empty.png';
 import { Link } from 'react-router-dom';
+import { Modal, Button } from 'semantic-ui-react';
 
 
 class ProductPage extends React.Component {
+	constructor(props){
+		super(props);
+		this.state = {
+			modal: false
+		}
+	}
 	componentDidMount(){
 		this.props.getDetails(this.props.location.state.id)
 	}
@@ -17,6 +24,13 @@ class ProductPage extends React.Component {
 		const array = [1, 2, 3, 4, 5]
 		return array.map(item=>{
 			return item <= rounded ? <img src={full} /> : <img src={empty} />
+		})
+	}
+	clickHandler = () =>{
+		this.props.buyProduct(this.props.product.product._id).then(()=>{
+			if (this.props.message === 0){
+				this.setState({modal: true})
+			}
 		})
 	}
 	render(){
@@ -47,7 +61,21 @@ class ProductPage extends React.Component {
 			 				<p>{this.props.product.product.description}</p>
 			 			</div>
 			 		</div>
-			 		<div className="buy-button"><button>BUY</button></div>
+			 		<div>
+			 			<Modal open={this.state.modal} 
+			 					onClose={() => this.setState({modal : false})} 
+			 					onOpen={() => this.setState({modal : true})} >
+			 				<Modal.Content>
+        						<Modal.Description>
+          							You purchase is placed.
+        						</Modal.Description>
+      						</Modal.Content>
+      						<Modal.Actions>
+        						<button onClick={()=>this.props.history.goBack()}>Go back</button>
+      						</Modal.Actions>
+			 			</Modal>
+			 		</div>
+			 		<div className="buy-button" onClick={this.clickHandler}><button>BUY</button></div>
 				</div>
         }
 	}
@@ -55,8 +83,11 @@ class ProductPage extends React.Component {
 const mapStateToProps = (state) =>{
 	console.log(state)
 	return {
-		product: state.product
+		product: state.product,
+		message: state.message
 	}
 }
 
-export default connect(mapStateToProps, {getDetails: getDetails})(withRouter(ProductPage))
+export default connect(mapStateToProps, {getDetails: getDetails, buyProduct: buyProduct})(withRouter(ProductPage))
+
+

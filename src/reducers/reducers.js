@@ -66,6 +66,8 @@ const messageReducer = (state="", action) =>{
 			return action.payload
 		case 'UPDATE': 
 			return action.payload
+		case 'BUY':
+			return action.payload
 		default:
 			return state
 	}

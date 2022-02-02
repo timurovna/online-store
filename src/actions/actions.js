@@ -92,8 +92,7 @@ export const searchItem = (text) => {
 		return fetch('http://aonlinestore.herokuapp.com/api/products/search', config)
 			.then(response => response.json())
 			.then(data=>{
-				console.log(data)
-				console.log("search")
+				//console.log(data)
 				dispatch({type: "SEARCH_ITEM", payload: data})
 			})
 	}
@@ -111,8 +110,6 @@ export const filterList = (filters) => {
 		return fetch('http://aonlinestore.herokuapp.com/api/products/filter', config)
 			.then(response => response.json())
 			.then(data=>{
-				//console.log(data)
-				//console.log("filter")
 				dispatch({type: "FILTER_LIST", payload: data})
 			})
 	}
@@ -167,12 +164,18 @@ export const addProduct = (newProduct) => {
 		})	
 	}
 }
-
-
-
-
-
-
-
-
-
+export const buyProduct = (id) => {
+	let config = {
+		method: 'POST',
+		headers: {authtoken: localStorage.getItem('token'), 'Accept': 'application/json', 'Content-Type': 'application/json'},
+	}
+	return dispatch => {
+		return fetch(`http://aonlinestore.herokuapp.com/api/purchase?id=${id}`, config)
+		.then(response => response.json())
+		.then(data=> {
+			if (data){
+				dispatch({type: 'BUY', payload: data.code})
+			}
+		})
+	}
+}

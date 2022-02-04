@@ -18,7 +18,7 @@ button {
 	flex-direction: column;
 }
 .login input{
-	height: 30px;
+	height: 40px;
 }
 .login img {
 	width: 180px;
@@ -32,16 +32,11 @@ button {
 	font-size: 14px;
 	color: red;
 }
-.password{
-	margin-bottom: 20px;
+.login-button {
+	margin-top: 10px;
 }
 .logo{
 	display: flex;
-}
-.ui button {
-	margin-top: 20px;
-	height: 40px;
-	border-radius: 7px;
 }
 .login .wrong {
 	display: flex;
@@ -51,6 +46,7 @@ button {
 .header {
 	display: flex;
 	justify-content: space-between;
+	border-bottom: 4px coral solid ;
 }
 .header img{
 	width: 120px;
@@ -75,42 +71,43 @@ button {
 }
 .product-card {
 	margin: 15px;
-	border: 1px dashed grey;
 	padding: 10px;
 	width: 300px;
-	height: 400px;
+	height: 380px;
 	text-align: center;
 }
 .product-card h4 {
 	margin: 0;
 	text-decoration: none;
+	height: 38px;
 }
 .card-img{
-	width: 300px;
-	height: 200px;
 	margin-bottom: 10px;
 }
 .card-img img{
-	width: 250px;
+	width: 300px;
 	height: 200px;
-	border: 1px solid grey;
 }
 .text{
 	padding-left:2vw;
     text-overflow: ellipsis;
     overflow: hidden;
-    font-size: 15px;
+    font-size: 12px;
     line-height: 25px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    padding-top: 15px;
     text-decoration: none;
 }
 .product-card-bottom{
+	padding: 10px 0;
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
+}
+.product-card-bottom p{
+	font-size: 20px;
+	font-weight: bold;
 }
 .rating img{
 	width: 20px;
@@ -120,6 +117,7 @@ button {
 	margin-top: 20px;
 	display: flex;
 	justify-content: space-around;
+	flex-wrap: wrap;
 }
 .left-img{
 	width: 300px;
@@ -127,7 +125,7 @@ button {
 	border: 1px solid grey;
 }
 .right{
-	max-width: 500px;
+	max-width: 400px;
 	margin-left: 10px;
 }
 .product-image{
@@ -153,39 +151,32 @@ textarea {
 	padding: 15px;
 }
 .buy-button button{
-	width: 70px;
+	width: 90px;
 	height: 40px;
 	border-radius: 5px;
 }
 .expand{
-	cursor: pointer;
-	padding: 5px 0;
-	background-color: #F0F8FF;
 	margin: 10px 0;
 }
 .expand p{
 	font-size: 16px;
 }
-.filter {
+.filterExpand {
 	padding: 30px 10px;
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 20px;
-	background-color: #F0F8FF;
+	background-color: #DCDCDC;
 	flex-wrap: wrap;
-	column-gap: 15px;
+	column-gap: 30px;
+}
+.filterExpand p{
+	margin: 5px 0;
 }
 .filter-btn{
+	padding-top: 10px;
 	display: flex;
-}
-.filter-btn button{
-	align-self: flex-end;
-	background-color: grey;
-	border: none;
-	color: white;
-	width: 80px;
-	height: 30px;
-	border-radius: 3px;
+	justify-content: space-around;
 }
 .gender {
 	display: flex;
@@ -201,6 +192,7 @@ textarea {
 .add-product{
 	display: flex;
 }
+
 .errorMessage {
 	margin-top: 50px;
 	display: flex;
@@ -208,6 +200,7 @@ textarea {
 }
 .not-found {
 	padding: 30px;
+	text-align: center;
 }
 
 

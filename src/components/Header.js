@@ -12,7 +12,7 @@ class Header extends React.Component {
 					<div className="header-logo" onClick={()=> this.props.history.push('/products')}><img src={logo}/></div>
 					<div className="header-right">
 						<p>Hello, {localStorage.getItem("username")}</p> 
-						<button onClick={()=>this.props.logoutUser()}>Log out</button>
+						<button className="ui button" onClick={()=>this.props.logoutUser()}>Log out</button>
 					</div>
 				</div>
 	}

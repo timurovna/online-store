@@ -7,7 +7,7 @@ class NotFound extends React.Component {
 	render (){
 		return <div className="not-found">
 				<h4>Sorry, nothing matches your search terms.</h4>
-				<button onClick={()=>this.props.fetchProducts()}>Try again</button>
+				<button className="ui button" onClick={()=>this.props.fetchProducts()}>Try again</button>
 			</div>
 	}
 }

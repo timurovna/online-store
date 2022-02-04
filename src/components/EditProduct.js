@@ -44,7 +44,8 @@ class EditProduct extends React.Component {
 					gender: product.gender,
 					category: product.category,
 					itemsSold: product.itemsSold,
-					available: product.available
+					available: product.available,
+					disabled: false,
 				})
 			})
 		}
@@ -177,13 +178,13 @@ class EditProduct extends React.Component {
         						</Modal.Description>
       						</Modal.Content>
       						<Modal.Actions>
-        						<button onClick={()=>this.props.history.goBack()}>OK</button>
+        						<button className="ui button" onClick={()=>this.props.history.goBack()}>OK</button>
       						</Modal.Actions>
 			 			</Modal>
 			 		</div>
 			 		<div className="buy-button">
-			 			<button disabled={this.state.disabled} onClick={this.clickHandler}>Save</button>
-			 			<button onClick={this.props.history.goBack}>Cancel</button>
+			 			<button className="ui button green" disabled={this.state.disabled} onClick={this.clickHandler}>Save</button>
+			 			<button className="ui button" onClick={this.props.history.goBack}>Cancel</button>
 			 		</div>
 				</div>
         }

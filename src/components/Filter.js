@@ -2,6 +2,7 @@ import React from 'react';
 import { filterList, fetchProducts } from '../actions/actions.js';
 import { connect } from 'react-redux';
 import { validate } from './Validation.js';
+import { Icon } from 'semantic-ui-react'
 
 class Filter extends React.Component{
 	constructor(props){
@@ -83,8 +84,8 @@ class Filter extends React.Component{
 	
 	render(){
 		return 	<div>
-				<div className="expand" onClick={this.showFilters}><p>Expand filters</p></div>
-				<div className={this.state.showFilter ? "filter" : "hide"}>
+				<div className="expand" onClick={this.showFilters}><button className="ui button"><i className="filter icon"></i>  Expand filters</button></div>
+				<div className={this.state.showFilter ? "filterExpand" : "hide"}>
 
 					<div>
 						<p>Available only</p>
@@ -148,14 +149,10 @@ class Filter extends React.Component{
 
 
 					<div className="filter-btn">
-						<button disabled={this.state.rating>5 || this.rating<1 || isNaN(this.state.priceTo) || isNaN(this.state.priceFrom) ? true: false} 
+						<button className="ui button orange" disabled={this.state.rating>5 || this.rating<1 || isNaN(this.state.priceTo) || isNaN(this.state.priceFrom) ? true: false} 
 							onClick={this.applyClickHandler}
 						>Apply</button>
-					</div>
-
-
-					<div className="filter-btn">
-						<button onClick={this.clearClickHandler}>Clear</button>
+						<button className="ui button orange" onClick={this.clearClickHandler}>Clear</button>
 					</div>
 				</div>
 			</div>

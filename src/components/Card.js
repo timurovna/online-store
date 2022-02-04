@@ -4,7 +4,8 @@ import empty from '../empty.png';
 import { Link } from 'react-router-dom';
 import { deleteProduct } from '../actions/actions.js';
 import { connect } from 'react-redux';
-import { Confirm } from "semantic-ui-react";
+import { Confirm, Card, Image, Item } from "semantic-ui-react";
+
 
 
 
@@ -37,9 +38,10 @@ class ProductCard extends React.Component{
 
 	render(){
 		return <div className="product-card">
+				<Card>
 					<div className="card-img">
 						<Link to={{ pathname: '/productdetails', state: { id: this.props.product._id}}}>
-							<img src={this.props.product.image}/>
+							<Image src={this.props.product.image}/>
 						</Link>
 					</div>
 					<div className="rating">{getRating(this.props.product.rating)}</div>
@@ -47,16 +49,16 @@ class ProductCard extends React.Component{
 					<div className="text"><p>{this.props.product.description}</p></div>
 
 					<div className="product-card-bottom">
-						<h2>${this.props.product.price}</h2>
-
+						<div><p>${this.props.product.price}</p></div>
 						<div>
-							{localStorage.getItem("role")==="admin" ? <button onClick={this.toggleDialog}>Delete</button> : null} 
+							{localStorage.getItem("role")==="admin" ? <button className="ui button tiny red" onClick={this.toggleDialog}>Delete</button> : null} 
 							<div className="ui modal"><Confirm open={this.state.showDialog} onCancel={this.toggleDialog} onConfirm={this.handleClick} /></div>
 						</div>
 						<Link to={{ pathname: '/productdetails', state: { id: this.props.product._id}}}>
-							<button>Details</button>
+							<button className="ui button tiny">Details</button>
 						</Link>	
 					</div>
+				</Card>
 				</div>
 	}
 }

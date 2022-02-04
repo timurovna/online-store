@@ -22,7 +22,7 @@ export const validate = (name, value, filter) => {
 				}
 		}
 		else if (name === "description"){
-				if (value.length > 500){
+				if (value.length > 800){
 					return "Must be less than 500 symbols"
 				}
 				else if (value=== ""){

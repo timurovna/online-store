@@ -6,7 +6,7 @@ import { withRouter } from "react-router";
 import full from '../full.png';
 import empty from '../empty.png';
 import { Link } from 'react-router-dom';
-import { Modal, Button } from 'semantic-ui-react';
+import { Modal, Button} from 'semantic-ui-react';
 
 
 class ProductPage extends React.Component {
@@ -54,7 +54,7 @@ class ProductPage extends React.Component {
 
 			 			<div className="right">
 			 				<div>{localStorage.getItem("role")==="admin" ? <Link to={{ pathname: '/productdetails/edit', state: {id: this.props.product.product._id, type: "edit"}}}>
-									<button>Edit</button>
+									<button className="ui button tiny">Edit</button>
 								</Link>	: null}
 							</div>
 			 				<h3>{this.props.product.product.title}</h3>
@@ -71,11 +71,11 @@ class ProductPage extends React.Component {
         						</Modal.Description>
       						</Modal.Content>
       						<Modal.Actions>
-        						<button onClick={()=>this.props.history.goBack()}>Go back</button>
+        						<button className="ui button" onClick={()=>this.props.history.goBack()}>Go back</button>
       						</Modal.Actions>
 			 			</Modal>
 			 		</div>
-			 		<div className="buy-button" onClick={this.clickHandler}><button>BUY</button></div>
+			 		<div className="buy-button" onClick={this.clickHandler}><button className="ui button blue">BUY</button></div>
 				</div>
         }
 	}

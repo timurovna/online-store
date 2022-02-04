@@ -4,6 +4,7 @@ import logo from '../Logo.jpeg';
 import {loginUser} from '../actions/actions.js';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
+import { Input } from 'semantic-ui-react'
 
 class Login extends React.Component {
 	constructor(props){
@@ -54,7 +55,9 @@ class Login extends React.Component {
 					<div className="wrong"><p>{this.props.errorMsg}</p></div>
 					<form>
 						<label for="login">Login</label>
-						<input  type="text" 
+						<Input  
+								type="text"
+								className="ui input"
 								id="email"
 								name="email"
 								placeholder="Enter login here" 
@@ -65,7 +68,7 @@ class Login extends React.Component {
 						<div className="error">{this.state.errorEmail}</div>
 
 						<label for="password">Password</label>
-    					<input type="password" 
+    					<Input type="password" 
     							className="password"
     							id="password"
     							value={this.state.password}
@@ -75,7 +78,9 @@ class Login extends React.Component {
     							onBlur = {()=>this.validatePassword(this.state.password)}
     					/>
     					<div className="error">{this.state.errorPassword}</div>
-    					<button className="ui button" type="submit" disabled={this.state.errorEmail || this.state.errorPassword} onClick={this.clickHandler}>Login</button>
+    					<div className="login-button">
+    						<button className="ui fluid button" type="submit" disabled={this.state.errorEmail || this.state.errorPassword} onClick={this.clickHandler}>Login</button>
+    					</div>
 					</form>
 				</div>)
 	}

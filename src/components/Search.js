@@ -20,10 +20,10 @@ class Search extends React.Component{
 	}
 	render (){
 		return <div className="search">
-				<div>{localStorage.getItem("role")==="admin" ? <Link to={{ pathname:'/add', state: {type: "add"}}}><button>Add product</button></Link> : null}</div>
-				<div>
+				<div>{localStorage.getItem("role")==="admin" ? <Link to={{ pathname:'/add', state: {type: "add"}}}><button className="ui button"><i className="icon add"></i>Add product</button></Link> : null}</div>
+				<div className="ui action input">
 					<input placeholder="Search input" value={this.state.text} type="text" id="search-text" onChange={this.changeHandler} />
-					<button onClick={this.clickHandler}>Search</button>
+					<button className="ui button" onClick={this.clickHandler}><i className="icon search"></i>Search</button>
 				</div>
 			</div>
 	}

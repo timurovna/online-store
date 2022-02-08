@@ -9,6 +9,17 @@ const initialState = {
 	}
 }
 
+const loadingReducer = (state = false, action) =>{
+	switch(action.type){
+		case 'LOADING':
+			return true
+		case 'LOADING_SUCCESS':
+			return false
+		default:
+			return state
+	}
+}
+
 const authReducer = (state=initialState, action) =>{
 	switch(action.type){
 		case 'LOGIN_SUCCESS':
@@ -77,6 +88,7 @@ export default combineReducers({
 	auth: authReducer,
 	products: productsReducer,
 	product: productReducer,
-	message: messageReducer 
+	message: messageReducer,
+	isLoading: loadingReducer
 })
 

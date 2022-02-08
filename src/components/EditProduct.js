@@ -50,7 +50,7 @@ class EditProduct extends React.Component {
 			})
 		}
 	}
-	blurHandler = (e) => {		
+	blurHandler = (e) => {	
 		let error = validate(e.target.name, e.target.value, false)
 		if (e.target.name==="category" || e.target.name==="gender"){
 			this.setState({requiredError: error})
@@ -60,7 +60,8 @@ class EditProduct extends React.Component {
 		}
 
 		if (this.state.title!=="" && this.state.image!=="" && this.state.description!=="" && this.state.category!=="none" &&
-		this.state.available!=="none" && this.state.gender!=="none" && this.state.rating!=="" && this.state.price!==""){
+		(this.state.available!=="" && !isNaN(this.state.available)) && this.state.gender!=="none" && (this.state.rating!=="" && this.state.rating>0 && this.state.rating<6) && (this.state.price!=="" && !isNaN(this.state.price))
+		&& this.state.titleError===""){
 			this.setState({disabled: false})
 		}
 		else{

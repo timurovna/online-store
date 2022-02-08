@@ -7,6 +7,7 @@ import Filter from './Filter';
 import Card from './Card.js'
 import Search from './Search.js'
 import NotFound from './NotFound.js'
+import LoaderText from './Loader.js'
 
 class ProductsList extends React.Component {
 	componentDidMount(){
@@ -26,17 +27,20 @@ class ProductsList extends React.Component {
 	render(){
 		console.log(this.props.products)
 		return <div>
-					<Header />
-					<Filter />
-					<Search />
-					<div className="products">{this.renderProductsList()}</div>
-
+					<LoaderText />
+					<div>
+						<Header />
+						<Filter />
+						<Search />
+						<div className="products">{this.renderProductsList()}</div>
+					</div>
 				</div>
 	}
 }
 const mapStateToProps = (state) => {
+	console.log(state)
 	return {
-		products: state.products.products
+		products: state.products.products,
 	}
 }
 export default connect(mapStateToProps, {fetchProducts: fetchProducts})(withRouter(ProductsList))

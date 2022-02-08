@@ -4,7 +4,7 @@ export const validate = (name, value, filter) => {
 					return ""
 				}
 				else if (value > 5 || value < 1){
-					return "Must be a number form 1 to 5"
+					return "Must be a number from 1 to 5"
 				}
 				else{
 					return ""

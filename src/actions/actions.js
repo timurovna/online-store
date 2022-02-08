@@ -23,6 +23,7 @@ export const loginUser = (creds) =>{
         body: JSON.stringify({email: creds.email, password: creds.password})
 	}
 	return dispatch => {
+		dispatch({type: 'LOADING'})
 		return fetch('http://aonlinestore.herokuapp.com/api/login', config)
 			.then(response => response.json())
 			.then(data => {
@@ -34,6 +35,7 @@ export const loginUser = (creds) =>{
 					localStorage.setItem('token', data.token);
 					localStorage.setItem('username', data.data.userName);
 					localStorage.setItem('role', data.data.role);
+					dispatch({type: 'LOADING_SUCCESS'})
 					dispatch(receiveLogin(data))
 				}	
 			})
@@ -61,10 +63,13 @@ const getProducts = (data) => {
 }
 export const fetchProducts = () => {
 	return dispatch => {
+		dispatch({type: 'LOADING'})
 		return fetch('http://aonlinestore.herokuapp.com/api/products')
 			.then(response => response.json())
 			.then(data => {
+
 				//console.log(data)
+				dispatch({type: 'LOADING_SUCCESS'})
 				dispatch(getProducts(data))
 		})
 	}

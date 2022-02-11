@@ -31,7 +31,6 @@ export const loginUser = (creds) =>{
 					dispatch(loginError(data.message))
 				}
 				else {
-					//console.log(data)
 					localStorage.setItem('token', data.token);
 					localStorage.setItem('username', data.data.userName);
 					localStorage.setItem('role', data.data.role);
@@ -44,7 +43,6 @@ export const loginUser = (creds) =>{
 //LOG OUT ACTIONS
 export const logoutUser = () => {
 	return dispatch => {
-		console.log('bye')
 		localStorage.removeItem('token')
 		localStorage.removeItem('username')
 		dispatch({
@@ -52,9 +50,7 @@ export const logoutUser = () => {
 			isAuthenticated: false})
 	}
 }
-
 // FETCH PRODUCTS 
-
 const getProducts = (data) => {
 	return {
 		type: "FETCH_PRODUCTS",
@@ -67,8 +63,6 @@ export const fetchProducts = () => {
 		return fetch('http://aonlinestore.herokuapp.com/api/products')
 			.then(response => response.json())
 			.then(data => {
-
-				//console.log(data)
 				dispatch({type: 'LOADING_SUCCESS'})
 				dispatch(getProducts(data))
 		})
@@ -136,7 +130,6 @@ export const deleteProduct = (product_id) => {
 		})
 	}
 }
-
 export const updateProduct = (editedProduct, product_id) => {
 	let config = {
 		method: 'PUT',

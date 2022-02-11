@@ -17,7 +17,7 @@ class ProductsList extends React.Component {
 		if (!this.props.products){
 			return null
 		}
-		else if (this.props.products.length === 0){
+		else if (this.props.products.length === 0 && !this.props.isLoading){
 			return <div><NotFound /></div>
 		}
 		return this.props.products.map(product => {
@@ -25,7 +25,6 @@ class ProductsList extends React.Component {
 			})
 	}
 	render(){
-		console.log(this.props.products)
 		return <div>
 					<LoaderText />
 					<div>
@@ -38,9 +37,9 @@ class ProductsList extends React.Component {
 	}
 }
 const mapStateToProps = (state) => {
-	console.log(state)
 	return {
-		products: state.products.products,
+		products: state.products,
+		isLoading: state.isLoading
 	}
 }
 export default connect(mapStateToProps, {fetchProducts: fetchProducts})(withRouter(ProductsList))

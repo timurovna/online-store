@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { requestLogin, receiveLogin, loginError, receiveLogout} from '../actions/actions.js';
 
 const initialState = {
 	isAuthenticated: localStorage.getItem('token') ? true : false,
@@ -8,7 +7,6 @@ const initialState = {
 		}
 	}
 }
-
 const loadingReducer = (state = false, action) =>{
 	switch(action.type){
 		case 'LOADING':
@@ -19,7 +17,6 @@ const loadingReducer = (state = false, action) =>{
 			return state
 	}
 }
-
 const authReducer = (state=initialState, action) =>{
 	switch(action.type){
 		case 'LOGIN_SUCCESS':
@@ -44,17 +41,11 @@ const authReducer = (state=initialState, action) =>{
 const productsReducer = (state=[], action) =>{
 	switch (action.type){
 		case 'FETCH_PRODUCTS':
-			return {
-				products: action.payload
-			}
+			return action.payload
 		case 'SEARCH_ITEM':
-			return {
-				products: action.payload
-			}
+			return action.payload
 		case 'FILTER_LIST':
-			return {
-				products: action.payload
-			}
+			return action.payload
 		default:
 			return state
 	}
@@ -62,9 +53,7 @@ const productsReducer = (state=[], action) =>{
 const productReducer = (state={}, action) =>{
 	switch (action.type){
 		case 'GET_PRODUCT_DETAILS':
-			return {
-				product: action.payload
-			}
+			return action.payload
 		default:
 			return state
 	}
@@ -83,7 +72,6 @@ const messageReducer = (state="", action) =>{
 			return state
 	}
 }
-
 export default combineReducers({
 	auth: authReducer,
 	products: productsReducer,

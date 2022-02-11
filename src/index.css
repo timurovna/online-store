@@ -128,8 +128,20 @@ button {
 	max-width: 400px;
 	margin-left: 10px;
 }
+.right p{
+	margin: 0;
+}
+.right input{
+	margin-bottom: 10px;
+}
 .product-image{
 	width: 300px;
+}
+.left p{
+	margin: 0;
+}
+.left input{
+	margin-bottom: 10px;
 }
 .left-bottom{
 	display: flex;
@@ -137,6 +149,9 @@ button {
 }
 .left-bottom-input input{
 	width: 95px;
+}
+.left-bottom p{
+	margin: 0;
 }
 .left-bottom-input{
 	max-width: 100px;
@@ -192,7 +207,6 @@ textarea {
 .add-product{
 	display: flex;
 }
-
 .errorMessage {
 	margin-top: 50px;
 	display: flex;
@@ -202,5 +216,6 @@ textarea {
 	padding: 30px;
 	text-align: center;
 }
-
-
+.sold{
+	margin: 7px 0;
+}

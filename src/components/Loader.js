@@ -18,9 +18,7 @@ class LoaderText extends React.Component {
 		}
 	}
 }
-
 const mapStateToProps = (state) =>{
 	return {isLoading : state.isLoading}
 }
-
 export default connect(mapStateToProps)(LoaderText)

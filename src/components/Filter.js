@@ -2,7 +2,6 @@ import React from 'react';
 import { filterList, fetchProducts } from '../actions/actions.js';
 import { connect } from 'react-redux';
 import { validate } from './Validation.js';
-import { Icon } from 'semantic-ui-react'
 
 class Filter extends React.Component{
 	constructor(props){
@@ -62,7 +61,6 @@ class Filter extends React.Component{
 			if (this.state.filters[key] !== "" && this.state.filters[key]!=="None"){
 				filters[key] = this.state.filters[key]
 			}
-		console.log(filters)
 		}
 		this.props.filterList(filters)
 	}
@@ -86,13 +84,10 @@ class Filter extends React.Component{
 		return 	<div>
 				<div className="expand" onClick={this.showFilters}><button className="ui button"><i className="filter icon"></i>  Expand filters</button></div>
 				<div className={this.state.showFilter ? "filterExpand" : "hide"}>
-
 					<div>
 						<p>Available only</p>
 						<input type="checkbox" onChange={this.availableHandler} checked={this.state.available}/>
 					</div>
-
-
 					<div className="gender">
 						<p>Gender</p>
 						<select id="gender" name="gender" onChange={this.inputChangeHandler} value={this.state.gender}>
@@ -102,8 +97,6 @@ class Filter extends React.Component{
   							<option value="Male">Male</option>
 						</select>
 					</div>
-
-
 					<div>
 						<p>Category</p>
 						<select id="category" name="category" onChange={this.inputChangeHandler} value={this.state.category}>
@@ -113,8 +106,6 @@ class Filter extends React.Component{
   							<option value="Super cheap">Super cheap</option>
 						</select>
 					</div>
-
-
 					<div>
 						<p>Rating</p>
 						<input type="number" min="1" max="5" 
@@ -124,8 +115,6 @@ class Filter extends React.Component{
 						/>
 						<p className="error">{this.state.ratingError}</p>
 					</div>
-
-
 					<div>
 						<div>
 							<p>Price</p>
@@ -146,8 +135,6 @@ class Filter extends React.Component{
 						</div>
 						<p className="error">{this.state.priceError}</p>
 					</div>
-
-
 					<div className="filter-btn">
 						<button className="ui button orange" disabled={this.state.rating>5 || this.rating<1 || isNaN(this.state.priceTo) || isNaN(this.state.priceFrom) ? true: false} 
 							onClick={this.applyClickHandler}
@@ -158,9 +145,5 @@ class Filter extends React.Component{
 			</div>
 	}
 }
-
 export default connect(null, {filterList:filterList, fetchProducts:fetchProducts})(Filter)
-
-
-
 

@@ -4,7 +4,8 @@ import logo from '../Logo.jpeg';
 import {loginUser} from '../actions/actions.js';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
-import { Input } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react';
+import LoaderText from './Loader.js';
 
 class Login extends React.Component {
 	constructor(props){
@@ -49,12 +50,13 @@ class Login extends React.Component {
    	}
 	render(){
 		return (<div className="login">
+					<LoaderText />
 					<div className="logo">
-						<img src={logo}/>
+						<img alt="" src={logo}/>
 					</div>
 					<div className="wrong"><p>{this.props.errorMsg}</p></div>
 					<form>
-						<label for="login">Login</label>
+						<label>Login</label>
 						<Input  
 								type="text"
 								className="ui input"
@@ -66,8 +68,7 @@ class Login extends React.Component {
 								onBlur = {()=>this.validateEmail(this.state.email)}
 						/>
 						<div className="error">{this.state.errorEmail}</div>
-
-						<label for="password">Password</label>
+						<label>Password</label>
     					<Input type="password" 
     							className="password"
     							id="password"
@@ -84,9 +85,7 @@ class Login extends React.Component {
 					</form>
 				</div>)
 	}
-
 }
-
 const mapStateToProps = (state) => {
 	return {
 		errorMsg: state.auth.errorMessage,
@@ -94,5 +93,3 @@ const mapStateToProps = (state) => {
 	}
 }
 export default connect(mapStateToProps, {loginUser:loginUser})(withRouter(Login))
-
-

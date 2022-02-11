@@ -11,5 +11,4 @@ class NotFound extends React.Component {
 			</div>
 	}
 }
-
 export default connect(null, { fetchProducts:fetchProducts })(NotFound)

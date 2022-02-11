@@ -6,8 +6,7 @@ import { withRouter } from "react-router";
 import full from '../full.png';
 import empty from '../empty.png';
 import { Link } from 'react-router-dom';
-import { Modal, Button} from 'semantic-ui-react';
-
+import { Modal } from 'semantic-ui-react';
 
 class ProductPage extends React.Component {
 	constructor(props){
@@ -23,42 +22,42 @@ class ProductPage extends React.Component {
 		const rounded = Math.round(rating)
 		const array = [1, 2, 3, 4, 5]
 		return array.map((item, index)=>{
-			return item <= rounded ? <img key={index} src={full} /> : <img key={index} src={empty} />
+			return item <= rounded ? <img alt="" key={index} src={full} /> : <img alt="" key={index} src={empty} />
 		})
 	}
 	clickHandler = () =>{
-		this.props.buyProduct(this.props.product.product._id).then(()=>{
+		this.props.buyProduct(this.props.product._id).then(()=>{
 			if (this.props.message === 0){
 				this.setState({modal: true})
 			}
 		})
 	}
 	render(){
-        if (this.props.product.product === undefined){
+        if (this.props.product === undefined){
         	return null
         }
         else{
-        	const rating = this.props.product.product.rating
+        	const rating = this.props.product.rating
         	return <div>
 			 		<Header />
 			 		<div className="details">
 			 			<div className="left">
-			 				<img className="product-image" src={this.props.product.product.image} />
+			 				<img className="product-image" alt="" src={this.props.product.image} />
 			 				<div className="rating">{this.getRating(rating)}</div>
 			 				<div className="left-bottom">
-			 					<p>${this.props.product.product.price}</p>
-			 					<p>{this.props.product.product.gender}</p>
-			 					<p>{this.props.product.product.category}</p>
+			 					<p>${this.props.product.price}</p>
+			 					<p>{this.props.product.gender}</p>
+			 					<p>{this.props.product.category}</p>
 			 				</div>
 			 			</div>
 
 			 			<div className="right">
-			 				<div>{localStorage.getItem("role")==="admin" ? <Link to={{ pathname: '/productdetails/edit', state: {id: this.props.product.product._id, type: "edit"}}}>
+			 				<div>{localStorage.getItem("role")==="admin" ? <Link to={{ pathname: '/productdetails/edit', state: {id: this.props.product._id, type: "edit"}}}>
 									<button className="ui button tiny">Edit</button>
 								</Link>	: null}
 							</div>
-			 				<h3>{this.props.product.product.title}</h3>
-			 				<p>{this.props.product.product.description}</p>
+			 				<h3>{this.props.product.title}</h3>
+			 				<p>{this.props.product.description}</p>
 			 			</div>
 			 		</div>
 			 		<div>
@@ -81,13 +80,11 @@ class ProductPage extends React.Component {
 	}
 }
 const mapStateToProps = (state) =>{
-	console.log(state)
 	return {
 		product: state.product,
 		message: state.message
 	}
 }
-
 export default connect(mapStateToProps, {getDetails: getDetails, buyProduct: buyProduct})(withRouter(ProductPage))
 
 

@@ -40,8 +40,8 @@ class ProductCard extends React.Component{
 		return <div className="product-card">
 				<Card>
 					<div className="card-img">
-						<Link to={{ pathname: '/productdetails', state: { id: this.props.product._id}}}>
-							<Image src={this.props.product.image}/>
+						<Link to={{ pathname: '/productdetails', state: {id: this.props.product._id}}}>
+							<Image key={"img"+this.props.product._id} src={this.props.product.image}/>
 						</Link>
 					</div>
 					<div className="rating">{getRating(this.props.product.rating)}</div>

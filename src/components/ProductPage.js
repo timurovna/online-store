@@ -22,8 +22,8 @@ class ProductPage extends React.Component {
 	getRating(rating){
 		const rounded = Math.round(rating)
 		const array = [1, 2, 3, 4, 5]
-		return array.map(item=>{
-			return item <= rounded ? <img src={full} /> : <img src={empty} />
+		return array.map((item, index)=>{
+			return item <= rounded ? <img key={index} src={full} /> : <img key={index} src={empty} />
 		})
 	}
 	clickHandler = () =>{

@@ -21,7 +21,7 @@ class ProductsList extends React.Component {
 			return <div><NotFound /></div>
 		}
 		return this.props.products.map(product => {
-				return <div><Card product={product}/></div>
+				return <div key={"div"+product._id}><Card key={product._id} product={product}/></div>
 			})
 	}
 	render(){

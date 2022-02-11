@@ -7,9 +7,9 @@ class LoaderText extends React.Component {
 			return null
 		}
 		if (this.props.isLoading === true) {
-			return <div class="ui active transition visible inverted dimmer">
-						<div class="content">
-							<div class="ui inverted text loader centered">Loading</div>
+			return <div className="ui active transition visible inverted dimmer">
+						<div className="content">
+							<div className="ui inverted text loader centered">Loading</div>
 						</div>
 					</div>
 		}

@@ -28,6 +28,7 @@ export const loginUser = (creds) =>{
 			.then(response => response.json())
 			.then(data => {
 				if (data.code === 1){
+					dispatch({type: 'LOADING_SUCCESS'})
 					dispatch(loginError(data.message))
 				}
 				else {
